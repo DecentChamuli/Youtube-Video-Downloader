@@ -5,6 +5,12 @@
   padding: 0;
   font-family: 'Roboto', sans-serif;
 }
+li{
+  list-style: none;
+}
+a{
+  text-decoration: none;
+}
 .MuiTab-textColorPrimary{
   color: rgb(226, 226, 60) !important;
 }
@@ -19,4 +25,5 @@
 }
 .MuiTab-root{
   background-color: blueviolet !important;
+  /* padding: 0 !important; */
 }

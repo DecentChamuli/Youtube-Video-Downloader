@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import Formats from './Formats'
 
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
@@ -7,10 +8,8 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
 import Button from '@mui/material/Button';
-import DownloadIcon from '@mui/icons-material/Download';
 import styled from 'styled-components'
 import thumbnail from '../assets/thumbnail.jpg'
-
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props
@@ -66,23 +65,29 @@ const Download = () => {
                     <Tab className="tab" label="DOWNLOAD MP3" {...a11yProps(1)} />
                 </Tabs>
                 <TabPanel value={value} index={0}>
-                    <table>
-                        <tr>
-                            <th className="table_header">Quality</th>
-                            <th className="table_header">Download</th>
-                        </tr>
-                        <tr>
-                            <td className="table_data">1080p</td>
-                            <td className="table_data">
-                                <Button variant="contained" startIcon={<DownloadIcon />}>
-                                    Download
-                                </Button>
-                            </td>
-                        </tr>
-                    </table>
+                    <div className="dl_section">
+                        <ul className="flex-row-space-between header">
+                            <li>Quality</li>
+                            <li>Format</li>
+                            <li>Download</li>
+                        </ul>
+                        <Formats vidQuality="1080p" vidFormat="mp4" vidUrl="#" />
+                        <Formats vidQuality="720p" vidFormat="mp4" vidUrl="#" />
+                        <Formats vidQuality="480p" vidFormat="mp4" vidUrl="#" />
+                        <Formats vidQuality="360p" vidFormat="mp4" vidUrl="#" />
+                        <Formats vidQuality="240p" vidFormat="mp4" vidUrl="#" />
+                    </div>
                 </TabPanel>
                 <TabPanel value={value} index={1}>
-                    Item Two
+                    <div className="dl_section">
+                        <ul className="flex-row-space-between header">
+                            <li>Quality</li>
+                            <li>Format</li>
+                            <li>Download</li>
+                        </ul>
+                        <Formats vidQuality="256k" vidFormat="mp3" vidUrl="#" />
+                        <Formats vidQuality="128k" vidFormat="mp3" vidUrl="#" />
+                    </div>
                 </TabPanel>
             </div>
         </Container>
@@ -93,12 +98,9 @@ export default Download
 
 const Container = styled.div`
     display: flex;
-    /* flex-direction: column; */
     margin-top: 5px;
     justify-content: center;
-    /* align-items: center; */
     margin-bottom: 50px;
-    /* width: 800px; */
     .left{
         display: flex;
         flex-direction: column;
@@ -130,6 +132,25 @@ const Container = styled.div`
     }
     .right{
         margin: 0 0 0 20px;
-        /* background-color: lightblue; */
+    }
+    .tab{
+        font-size: 19px;
+    }
+    .dl_section{
+        display: flex;
+        flex-direction: column;
+    }
+    .flex-row-space-between{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+    .header{
+        border-bottom: 1px solid #756b6b;
+        margin-bottom: 10px;
+    }
+    .header > li{
+        font-size: 21px;
+        padding: 0 15px;
     }
 `
