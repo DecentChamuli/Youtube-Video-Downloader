@@ -49,8 +49,10 @@ const Download = () => {
     const [value, setValue] = useState(0)
 
     const handleChange = (event, newValue) => {
-      setValue(newValue);
+        setValue(newValue);
     }
+
+    const vidQuality = ['1080p', '720p', '480p', '360p', '240p', '144p'] 
 
     return (
         <Container>
@@ -60,7 +62,7 @@ const Download = () => {
                 <Button className='btn' type="submit" variant="outlined">Download Thumbnail</Button>
             </div>
             <div className="right">
-                <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
+                <Tabs className="tabs" value={value} onChange={handleChange} aria-label="basic tabs example">
                     <Tab className="tab" label="DOWNLOAD MP4" {...a11yProps(0)} />
                     <Tab className="tab" label="DOWNLOAD MP3" {...a11yProps(1)} />
                 </Tabs>
@@ -71,11 +73,9 @@ const Download = () => {
                             <li>Format</li>
                             <li>Download</li>
                         </ul>
-                        <Formats vidQuality="1080p" vidFormat="mp4" vidUrl="#" />
-                        <Formats vidQuality="720p" vidFormat="mp4" vidUrl="#" />
-                        <Formats vidQuality="480p" vidFormat="mp4" vidUrl="#" />
-                        <Formats vidQuality="360p" vidFormat="mp4" vidUrl="#" />
-                        <Formats vidQuality="240p" vidFormat="mp4" vidUrl="#" />
+                        {vidQuality.map((vid, index) => (
+                            <Formats vidQuality={vid} vidFormat="mp4" key={index} vidUrl={`#${index+1}`} />
+                        ))}
                     </div>
                 </TabPanel>
                 <TabPanel value={value} index={1}>
@@ -133,8 +133,12 @@ const Container = styled.div`
     .right{
         margin: 0 0 0 20px;
     }
+    .tabs{
+        background-color: rgba(217, 206, 228, 0.418) !important;
+    }
     .tab{
-        font-size: 19px;
+        font-size: 15px;
+        margin: 0 auto;
     }
     .dl_section{
         display: flex;
@@ -150,7 +154,10 @@ const Container = styled.div`
         margin-bottom: 10px;
     }
     .header > li{
-        font-size: 21px;
+        font-size: 18px;
+        font-weight: 700;
         padding: 0 15px;
+        width: 80px;
+        margin: 0 auto;
     }
 `

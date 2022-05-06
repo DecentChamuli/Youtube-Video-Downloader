@@ -12,6 +12,8 @@ const Header = () => {
                     <li>MP4 Download</li>
                     <li>MP3 Download</li>
                     <li>Playlist Download</li>
+                    <li>Thumbnail Download</li>
+                    <li>Subtitle Download</li>
                 </ul>
             </div>
         </Container>
@@ -45,7 +47,8 @@ const Container = styled.div`
                 color: #00ffff;
             }
         }
-        li:first-child, li:last-child{
+        /* li:first-child, li:last-child{ */
+        li:nth-child(odd){
             border-style: none solid;
             border-color: black;
         }

@@ -12,18 +12,18 @@ a{
   text-decoration: none;
 }
 .MuiTab-textColorPrimary{
-  color: rgb(226, 226, 60) !important;
+  color: rgb(1, 41, 151) !important;
 }
-.MuiTab-textColorSecondary{
+/* .MuiTab-textColorSecondary{
   color: rgb(226, 60, 184) !important;
-}
+} */
 .Mui-selected{
-  color: rgb(46, 199, 79) !important;
+  color: rgb(218, 12, 12) !important;
 }
 .MuiTabs-indicator{
-  background-color: orange !important;
+  background-color: rgb(9, 1, 36) !important;
 }
-.MuiTab-root{
-  background-color: blueviolet !important;
-  /* padding: 0 !important; */
-}
+/* .MuiTab-root{
+  background-color: rgba(217, 206, 228, 0.493) !important;
+  padding: 0 !important;
+} */

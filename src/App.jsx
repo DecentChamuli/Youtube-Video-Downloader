@@ -9,17 +9,16 @@ import Download from "./components/Download"
 
 function App() {
 
-    const [url, setUrl] = useState("abc")
+    const [url, setUrl] = useState("https://www.youtube.com/watch?v=mBg8ToHfvco")
     let navigate = useNavigate()
 
     const handleSubmit = (e) => {
-        e.preventDefault()
         if(url === ""){
             alert("Enter Url")
         }
         else{
-            navigate(`/download?url=${url}`)
-            console.log("Clicked " + url)
+            // let newUrlArray = url.split("https://www.youtube.com/watch?v=")
+            navigate(`/download?youtube=${url}`)
         }
     }
 
@@ -34,7 +33,7 @@ function App() {
                 <h2>Enter Youtube URL Below</h2>
                 <form className="url-form">
                     <TextField onChange={handleUrl} value={url} className="url-field" variant="outlined" placeholder="https://www.youtube.com/watch?v=" />
-                    <Button className='form-button' onClick={handleSubmit} type="submit" variant="outlined">Download Now</Button>
+                    <Button className='form-button' onClick={handleSubmit} variant="outlined">Download Now</Button>
                 </form>
                 <h3 className="disclaimer">By using our service you accept our Terms of Service and Privacy Policy</h3>
             </Container>
@@ -57,7 +56,6 @@ const Container = styled.div`
         font-weight: 700;
     }
     .url-form {
-        /* background-color: lightblue; */
         display: flex;
         justify-content: center;
     }

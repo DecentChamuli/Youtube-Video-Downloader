@@ -11,7 +11,8 @@ const Formats = ({ vidQuality, vidFormat, vidUrl }) => {
             <li>{vidFormat}</li>
             <li>
                 <Button className="btn-dl" variant="contained" startIcon={<DownloadIcon />}>
-                    <a href={vidUrl}>Download</a>
+                    <a href={vidUrl} target="blank">Download</a>
+                    {/* <a href="https://google.com" >Download</a> */}
                 </Button>
             </li>
         </ul>
@@ -29,15 +30,21 @@ const Container = styled.div`
         align-items: center;
     }
     li{
-        padding: 0 25px;
-        font-size: 15px;
+        padding: 1px 20px;
+        font-size: 16px;
+        width: 65px;
+        /* background-color: lightblue; */
     }
     .btn-dl{
-        color: white;
-        font-size: 10px;
-        background-color: #029109;
+        font-size: 12px;
+        background-color: #259e2b;
+        color: #fff;
+        transition: all ease .5s;
         :hover{
             background-color: #047009;
         }
     }    
+    .btn-dl > a {
+        color: #fff;
+    }
 `
