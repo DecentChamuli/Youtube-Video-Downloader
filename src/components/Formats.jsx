@@ -12,7 +12,6 @@ const Formats = ({ vidQuality, vidFormat, vidUrl }) => {
             <li>
                 <Button className="btn-dl" variant="contained" startIcon={<DownloadIcon />}>
                     <a href={vidUrl} target="blank">Download</a>
-                    {/* <a href="https://google.com" >Download</a> */}
                 </Button>
             </li>
         </ul>

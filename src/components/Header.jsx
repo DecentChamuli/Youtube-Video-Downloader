@@ -9,11 +9,10 @@ const Header = () => {
             <div className="header">
                 <Link to="/"><img src={logo} alt="Youtube Video Downloader" /></Link>
                 <ul>
-                    <li>MP4 Download</li>
-                    <li>MP3 Download</li>
-                    <li>Playlist Download</li>
-                    <li>Thumbnail Download</li>
-                    <li>Subtitle Download</li>
+                    <li><Link to="/video">MP4/MP4 Download</Link></li>
+                    <li><Link to="/playlist">Playlist Download</Link></li>
+                    <li><Link to="/thumbnail">Thumbnail Download</Link></li>
+                    <li><Link to="/subtitle">Subtitle Download</Link></li>
                 </ul>
             </div>
         </Container>
@@ -38,7 +37,7 @@ const Container = styled.div`
         flex-direction: row;
         justify-content: center;
         list-style: none;
-        li{
+        li > a{
             color: white;
             font-weight: 700;
             padding: 0 20px;
@@ -47,8 +46,8 @@ const Container = styled.div`
                 color: #00ffff;
             }
         }
-        /* li:first-child, li:last-child{ */
-        li:nth-child(odd){
+        li:first-child, li:last-child{
+        /* li:nth-child(){ */
             border-style: none solid;
             border-color: black;
         }

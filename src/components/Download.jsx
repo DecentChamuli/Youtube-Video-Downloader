@@ -1,4 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import { useLocation } from 'react-router-dom';
+
 import Formats from './Formats'
 
 import PropTypes from 'prop-types';
@@ -9,7 +12,7 @@ import Box from '@mui/material/Box';
 
 import Button from '@mui/material/Button';
 import styled from 'styled-components'
-import thumbnail from '../assets/thumbnail.jpg'
+import thumbnailImg from '../assets/thumbnail.jpg'
 
 function TabPanel(props) {
     const { children, value, index, ...other } = props
@@ -44,21 +47,42 @@ function a11yProps(index) {
     }
 }
 
+function useQuery(){
+    return new URLSearchParams(useLocation().search)
+}
+
 const Download = () => {
 
+    let query = useQuery()
+    
+    const [title, setTitle] = useState("This is Video Title with A long sentence that can overflow.")
+    const [thumbnail, setThumbnail] = useState(thumbnailImg)
     const [value, setValue] = useState(0)
+    const [qualities, setQualities] = useState([])
+
+    // let param = query.get("youtube")
+    // useEffect(()=>{
+    //     const BASE_URL = process.env.REACT_APP_BASE_URL;
+    //     axios.get(`${BASE_URL}/yt/full?video=${param}`)
+    //     .then(res=>{
+    //         // console.log(res.data)
+    //         // console.log(Object.keys(res.data[0])[0])
+    //         setTitle(res.data[2].title)
+    //         setThumbnail(res.data[3].thumbnails[4].url)
+    //         setQualities(res.data[4].formats)
+    //     })
+    // }, [param])
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     }
-
     const vidQuality = ['1080p', '720p', '480p', '360p', '240p', '144p'] 
 
     return (
         <Container>
             <div className="left">
                 <img src={thumbnail} alt="Youtube Thumnail" className="thumbnail"/>
-                <p className="title">This is Video Title with A long sentence that can overflow.</p>
+                <p className="title">{title}</p>
                 <Button className='btn' type="submit" variant="outlined">Download Thumbnail</Button>
             </div>
             <div className="right">
@@ -73,8 +97,14 @@ const Download = () => {
                             <li>Format</li>
                             <li>Download</li>
                         </ul>
+                        {/* {qualities.map((vid, index) => ( */}
                         {vidQuality.map((vid, index) => (
-                            <Formats vidQuality={vid} vidFormat="mp4" key={index} vidUrl={`#${index+1}`} />
+                            <Formats 
+                                vidQuality={vid} 
+                                vidFormat="mp4" 
+                                key={index} 
+                                vidUrl={vid === '360p' ? `https://${vid}.url` : vid === '720p' ? `https://${vid}.url` : `#${index}`} 
+                            />
                         ))}
                     </div>
                 </TabPanel>
@@ -105,7 +135,7 @@ const Container = styled.div`
         display: flex;
         flex-direction: column;
         text-align: center;
-        justify-content: center;
+        /* justify-content: center; */
         margin-right: 15px;
     }
     .thumbnail{

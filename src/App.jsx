@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 import styled from 'styled-components'
@@ -6,19 +7,26 @@ import { useNavigate, Routes, Route } from "react-router-dom"
 
 import Header from "./components/Header"
 import Download from "./components/Download"
+import Thumbnails from './components/Thumbnails'
+import Playlist from './components/Playlist'
+import Subtitle from './components/Subtitle'
 
 function App() {
 
     const [url, setUrl] = useState("https://www.youtube.com/watch?v=mBg8ToHfvco")
+    // const [url, setUrl] = useState("")
+    const [nullError, setNullError] = useState(false)
     let navigate = useNavigate()
 
     const handleSubmit = (e) => {
         if(url === ""){
-            alert("Enter Url")
+            setNullError(true)
         }
         else{
-            // let newUrlArray = url.split("https://www.youtube.com/watch?v=")
-            navigate(`/download?youtube=${url}`)
+            setNullError(false)
+            // let trimmedUrl = url.split("https://www.youtube.com/watch?v=")
+            // console.log(trimmedUrl[1])
+            navigate(`/video?youtube=${url}`)
         }
     }
 
@@ -35,10 +43,14 @@ function App() {
                     <TextField onChange={handleUrl} value={url} className="url-field" variant="outlined" placeholder="https://www.youtube.com/watch?v=" />
                     <Button className='form-button' onClick={handleSubmit} variant="outlined">Download Now</Button>
                 </form>
+                {nullError && <h3 className="null_error">Please Enter Valid Youtube URL</h3> }
                 <h3 className="disclaimer">By using our service you accept our Terms of Service and Privacy Policy</h3>
             </Container>
             <Routes>
-                <Route exact path="/download" element={<Download />} />
+                <Route exact path="/video" element={<Download />} />
+                <Route exact path="/thumbnail" element={<Thumbnails />} />
+                <Route exact path="/subtitle" element={<Subtitle />} />
+                <Route exact path="/playlist" element={<Playlist />} />
             </Routes>
         </div>
   )
@@ -74,6 +86,13 @@ const Container = styled.div`
             border-color: #ff4242;
             color: #fff;
         }
+    }
+    .null_error{
+        margin: 10px 0;
+        color: red;
+        text-align: center;
+        font-weight: 500;
+        font-size: 15px;
     }
     .disclaimer{
         margin: 10px 0;
