@@ -59,24 +59,32 @@ const Download = () => {
     const [thumbnail, setThumbnail] = useState(thumbnailImg)
     const [value, setValue] = useState(0)
     const [qualities, setQualities] = useState([])
+    const [p360, set360] = useState("#")
+    const [p720, set720] = useState("#")
+    const [audio, setAudio] = useState("#")
 
-    // let param = query.get("youtube")
-    // useEffect(()=>{
-    //     const BASE_URL = process.env.REACT_APP_BASE_URL;
-    //     axios.get(`${BASE_URL}/yt/full?video=${param}`)
-    //     .then(res=>{
-    //         // console.log(res.data)
-    //         // console.log(Object.keys(res.data[0])[0])
-    //         setTitle(res.data[2].title)
-    //         setThumbnail(res.data[3].thumbnails[4].url)
-    //         setQualities(res.data[4].formats)
-    //     })
-    // }, [param])
+    const mergeBase = "https://api-server-by-dc.herokuapp.com/yt/merged?video=https://www.youtube.com/watch?"
+
+    let param = query.get("youtube")
+    useEffect(()=>{
+        const BASE_URL = process.env.REACT_APP_BASE_URL;
+        axios.get(`${BASE_URL}/yt/full?video=https://www.youtube.com/watch?v=${param}`)
+        .then(res=>{
+            // console.log(res.data)
+            // console.log(res.data[3].ytVid[0]["360p"])
+            setTitle(res.data[0].title)
+            setThumbnail(res.data[1].thumbnails[3].url)
+            setQualities(res.data[2].formats)
+            set360(res.data[3].ytVid[0]["360p"])
+            set720(res.data[3].ytVid[1]["720p"])
+            setAudio(res.data[4].ytAudio)
+        })
+    }, [param])
 
     const handleChange = (event, newValue) => {
         setValue(newValue);
     }
-    const vidQuality = ['1080p', '720p', '480p', '360p', '240p', '144p'] 
+    // const vidQuality = ['1080p', '720p', '480p', '360p', '240p', '144p'] 
 
     return (
         <Container>
@@ -97,13 +105,13 @@ const Download = () => {
                             <li>Format</li>
                             <li>Download</li>
                         </ul>
-                        {/* {qualities.map((vid, index) => ( */}
-                        {vidQuality.map((vid, index) => (
+                        {/* {vidQuality.map((vid, index) => ( */}
+                        {qualities.map((vid, index) => (
                             <Formats 
                                 vidQuality={vid} 
                                 vidFormat="mp4" 
                                 key={index} 
-                                vidUrl={vid === '360p' ? `https://${vid}.url` : vid === '720p' ? `https://${vid}.url` : `#${index}`} 
+                                vidUrl={vid === '360p' ? `${p360}` : vid === '720p' ? `${p720}` : `${mergeBase}v=${param}&quality=${vid}`} 
                             />
                         ))}
                     </div>
@@ -115,8 +123,7 @@ const Download = () => {
                             <li>Format</li>
                             <li>Download</li>
                         </ul>
-                        <Formats vidQuality="256k" vidFormat="mp3" vidUrl="#" />
-                        <Formats vidQuality="128k" vidFormat="mp3" vidUrl="#" />
+                        <Formats vidQuality="128k" vidFormat="mp3" vidUrl={audio} />
                     </div>
                 </TabPanel>
             </div>

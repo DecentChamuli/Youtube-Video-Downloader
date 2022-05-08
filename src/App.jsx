@@ -19,19 +19,47 @@ function App() {
     let navigate = useNavigate()
 
     const handleSubmit = (e) => {
-        if(url === ""){
-            setNullError(true)
+        let trimmedUrl;
+        // if(url === ""){
+        //     setNullError(true)
+        // }
+        // else{
+        //     setNullError(false)
+        //     navigate(`/video?youtube=${url}`)
+        // }
+        if(url.includes("youtu.be")){
+            setNullError(false)
+            trimmedUrl = url.split("youtu.be/")
+            if(trimmedUrl[1] === ""){
+                setNullError(true)
+            }
+            else{
+                navigate(`/video?youtube=${trimmedUrl[1]}`)
+            }
+        }
+        else if(url.includes("www.youtube.com/shorts/")){
+            setNullError(false)
+            trimmedUrl = url.split("www.youtube.com/shorts/")
+            if(trimmedUrl[1] === ""){
+                setNullError(true)
+            }
+            else{
+                navigate(`/video?youtube=${trimmedUrl[1]}`)
+            }
+        }
+        else if(url.includes("www.youtube.com/watch?v")){
+            setNullError(false)
+            trimmedUrl = url.split("www.youtube.com/watch?v=")
+            if(trimmedUrl[1] === ""){
+                setNullError(true)
+            }
+            else{
+                navigate(`/video?youtube=${trimmedUrl[1]}`)
+            }
         }
         else{
-            setNullError(false)
-            // let trimmedUrl = url.split("https://www.youtube.com/watch?v=")
-            // console.log(trimmedUrl[1])
-            navigate(`/video?youtube=${url}`)
+            setNullError(true)
         }
-    }
-
-    const handleUrl = (e) => {
-        setUrl(e.target.value)
     }
 
     return (
@@ -40,7 +68,7 @@ function App() {
             <Container>
                 <h2>Enter Youtube URL Below</h2>
                 <form className="url-form">
-                    <TextField onChange={handleUrl} value={url} className="url-field" variant="outlined" placeholder="https://www.youtube.com/watch?v=" />
+                    <TextField onChange={(e) => {setUrl(e.target.value)}} value={url} className="url-field" variant="outlined" placeholder="https://www.youtube.com/watch?v=" />
                     <Button className='form-button' onClick={handleSubmit} variant="outlined">Download Now</Button>
                 </form>
                 {nullError && <h3 className="null_error">Please Enter Valid Youtube URL</h3> }
