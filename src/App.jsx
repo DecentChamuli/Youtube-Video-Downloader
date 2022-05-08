@@ -13,8 +13,8 @@ import Subtitle from './components/Subtitle'
 
 function App() {
 
-    const [url, setUrl] = useState("https://www.youtube.com/watch?v=mBg8ToHfvco")
-    // const [url, setUrl] = useState("")
+    // const [url, setUrl] = useState("https://www.youtube.com/watch?v=mBg8ToHfvco")
+    const [url, setUrl] = useState("")
     const [nullError, setNullError] = useState(false)
     let navigate = useNavigate()
 
