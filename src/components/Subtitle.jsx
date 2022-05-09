@@ -1,8 +1,11 @@
 import React from 'react'
+import Loading from './Loading'
 
 const Subtitle = () => {
   return (
-    <div className='d-flex'>Subtitle</div>
+    <>
+    <Loading textToShow={"This Service is currently Unavailable"} />
+    </> 
   )
 }
 

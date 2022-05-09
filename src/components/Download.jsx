@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useLocation } from 'react-router-dom';
 
 import Formats from './Formats'
+import Loading from './Loading';
 
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
@@ -62,22 +63,25 @@ const Download = () => {
     const [p360, set360] = useState("#")
     const [p720, set720] = useState("#")
     const [audio, setAudio] = useState("#")
+    const [loading, setLoading] = useState(false)
 
-    const mergeBase = "https://api-server-by-dc.herokuapp.com/yt/merged?video=https://www.youtube.com/watch?"
+    const mergeBase = "https://api-server-by-dc.herokuapp.com/yt/merge?video=https://www.youtube.com/watch?"
 
     let param = query.get("youtube")
     useEffect(()=>{
+        setLoading(true)
         const BASE_URL = process.env.REACT_APP_BASE_URL;
         axios.get(`${BASE_URL}/yt/full?video=https://www.youtube.com/watch?v=${param}`)
         .then(res=>{
             // console.log(res.data)
-            // console.log(res.data[3].ytVid[0]["360p"])
             setTitle(res.data[0].title)
             setThumbnail(res.data[1].thumbnails[3].url)
             setQualities(res.data[2].formats)
             set360(res.data[3].ytVid[0]["360p"])
             set720(res.data[3].ytVid[1]["720p"])
             setAudio(res.data[4].ytAudio)
+
+            setLoading(false)
         })
     }, [param])
 
@@ -88,45 +92,48 @@ const Download = () => {
 
     return (
         <Container>
-            <div className="left">
-                <img src={thumbnail} alt="Youtube Thumnail" className="thumbnail"/>
-                <p className="title">{title}</p>
-                <Button className='btn' type="submit" variant="outlined">Download Thumbnail</Button>
-            </div>
-            <div className="right">
-                <Tabs className="tabs" value={value} onChange={handleChange} aria-label="basic tabs example">
-                    <Tab className="tab" label="DOWNLOAD MP4" {...a11yProps(0)} />
-                    <Tab className="tab" label="DOWNLOAD MP3" {...a11yProps(1)} />
-                </Tabs>
-                <TabPanel value={value} index={0}>
-                    <div className="dl_section">
-                        <ul className="flex-row-space-between header">
-                            <li>Quality</li>
-                            <li>Format</li>
-                            <li>Download</li>
-                        </ul>
-                        {/* {vidQuality.map((vid, index) => ( */}
-                        {qualities.map((vid, index) => (
-                            <Formats 
-                                vidQuality={vid} 
-                                vidFormat="mp4" 
-                                key={index} 
-                                vidUrl={vid === '360p' ? `${p360}` : vid === '720p' ? `${p720}` : `${mergeBase}v=${param}&quality=${vid}`} 
-                            />
-                        ))}
-                    </div>
-                </TabPanel>
-                <TabPanel value={value} index={1}>
-                    <div className="dl_section">
-                        <ul className="flex-row-space-between header">
-                            <li>Quality</li>
-                            <li>Format</li>
-                            <li>Download</li>
-                        </ul>
-                        <Formats vidQuality="128k" vidFormat="mp3" vidUrl={audio} />
-                    </div>
-                </TabPanel>
-            </div>
+            {loading && <Loading textToShow={"Loading..."} /> }
+            {!loading && <>
+                <div className="left">
+                    <img src={thumbnail} alt="Youtube Thumnail" className="thumbnail"/>
+                    <p className="title">{title}</p>
+                    <Button className='btn' type="submit" variant="outlined" onClick={()=>{ window.open(`${thumbnail}`) }}>Download Thumbnail</Button>
+                </div>
+                <div className="right">
+                    <Tabs className="tabs" value={value} onChange={handleChange} aria-label="basic tabs example">
+                        <Tab className="tab" label="DOWNLOAD VIDEO" {...a11yProps(0)} />
+                        <Tab className="tab" label="DOWNLOAD AUDIO" {...a11yProps(1)} />
+                    </Tabs>
+                    <TabPanel value={value} index={0}>
+                        <div className="dl_section">
+                            <ul className="flex-row-space-between header">
+                                <li>Quality</li>
+                                <li>Format</li>
+                                <li>Download</li>
+                            </ul>
+                            {/* {vidQuality.map((vid, index) => ( */}
+                            {qualities.map((vid, index) => (
+                                <Formats 
+                                    vidQuality={vid} 
+                                    vidFormat="mp4" 
+                                    key={index} 
+                                    vidUrl={vid === '360p' ? `${p360}` : vid === '720p' ? `${p720}` : `${mergeBase}v=${param}&quality=${vid}`} 
+                                />
+                            ))}
+                        </div>
+                    </TabPanel>
+                    <TabPanel value={value} index={1}>
+                        <div className="dl_section">
+                            <ul className="flex-row-space-between header">
+                                <li>Quality</li>
+                                <li>Format</li>
+                                <li>Download</li>
+                            </ul>
+                            <Formats vidQuality="128k" vidFormat="mp3" vidUrl={audio} />
+                        </div>
+                    </TabPanel>
+                </div>
+            </> }
         </Container>
     )
 }

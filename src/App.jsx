@@ -27,7 +27,7 @@ function App() {
         //     setNullError(false)
         //     navigate(`/video?youtube=${url}`)
         // }
-        if(url.includes("youtu.be")){
+        if(url.includes("youtu.be/")){
             setNullError(false)
             trimmedUrl = url.split("youtu.be/")
             if(trimmedUrl[1] === ""){
@@ -47,7 +47,7 @@ function App() {
                 navigate(`/video?youtube=${trimmedUrl[1]}`)
             }
         }
-        else if(url.includes("www.youtube.com/watch?v")){
+        else if(url.includes("www.youtube.com/watch?v=")){
             setNullError(false)
             trimmedUrl = url.split("www.youtube.com/watch?v=")
             if(trimmedUrl[1] === ""){
@@ -63,24 +63,32 @@ function App() {
     }
 
     return (
-        <div className="App">
-            <Header />
-            <Container>
-                <h2>Enter Youtube URL Below</h2>
-                <form className="url-form">
-                    <TextField onChange={(e) => {setUrl(e.target.value)}} value={url} className="url-field" variant="outlined" placeholder="https://www.youtube.com/watch?v=" />
-                    <Button className='form-button' onClick={handleSubmit} variant="outlined">Download Now</Button>
-                </form>
-                {nullError && <h3 className="null_error">Please Enter Valid Youtube URL</h3> }
-                <h3 className="disclaimer">By using our service you accept our Terms of Service and Privacy Policy</h3>
-            </Container>
-            <Routes>
-                <Route exact path="/video" element={<Download />} />
-                <Route exact path="/thumbnail" element={<Thumbnails />} />
-                <Route exact path="/subtitle" element={<Subtitle />} />
-                <Route exact path="/playlist" element={<Playlist />} />
-            </Routes>
-        </div>
+        <>
+            <div className="sm_screen">
+                <h3>This website is not currently available at your screen size. </h3>
+                <h3>We are working to make this Website Easy-to-Access for all.</h3>
+                <h3>Sorry for the Inconvenience!</h3>
+            </div>
+            <div className="App">
+                <Header />
+                <Container>
+                    <h2>Enter Youtube URL Below</h2>
+                    <form className="url-form">
+                        <TextField onChange={(e) => {setUrl(e.target.value)}} value={url} className="url-field" variant="outlined" placeholder="https://www.youtube.com/watch?v=" />
+                        <Button className='form-button' onClick={handleSubmit} variant="outlined">Download Now</Button>
+                    </form>
+                    {nullError && <h3 className="null_error">Please Enter Valid Youtube URL</h3> }
+                    <h3 className="disclaimer">By using our service you accept our Terms of Service and Privacy Policy</h3>
+                </Container>
+                <Routes>
+                    <Route exact path="/video" element={<Download />} />
+                    <Route exact path="/thumbnail" element={<Thumbnails />} />
+                    <Route exact path="/subtitle" element={<Subtitle />} />
+                    <Route exact path="/playlist" element={<Playlist />} />
+                </Routes>
+                <div id="container-c6b9b1ca4a65c92b8e562df691119377"></div>
+            </div>
+        </>
   )
 }
 

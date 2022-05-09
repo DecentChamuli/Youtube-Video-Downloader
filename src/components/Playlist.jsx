@@ -1,8 +1,11 @@
 import React from 'react'
+import Loading from './Loading'
 
 const Playlist = () => {
   return (
-    <div className='d-flex'>Playlist</div>
+    <>
+    <Loading textToShow={"This Service is currently Unavailable"} />
+    </> 
   )
 }
 

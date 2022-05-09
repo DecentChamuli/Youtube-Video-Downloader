@@ -1,10 +1,11 @@
 import React from 'react'
+import Loading from './Loading'
 
 const Thumbnails = () => {
   return (
-    <div className='d-flex'>
-        This is Thumbnail
-    </div>
+    <>
+    <Loading textToShow={"This Service is currently Unavailable"} />
+    </>
   )
 }
 

@@ -9,7 +9,7 @@ const Header = () => {
             <div className="header">
                 <Link to="/"><img src={logo} alt="Youtube Video Downloader" /></Link>
                 <ul>
-                    <li><Link to="/video">MP4/MP4 Download</Link></li>
+                    {/* <li><Link to="/video">MP4/MP4 Download</Link></li> */}
                     <li><Link to="/playlist">Playlist Download</Link></li>
                     <li><Link to="/thumbnail">Thumbnail Download</Link></li>
                     <li><Link to="/subtitle">Subtitle Download</Link></li>

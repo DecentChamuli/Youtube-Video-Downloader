@@ -10,9 +10,9 @@ const Formats = ({ vidQuality, vidFormat, vidUrl }) => {
             <li>{vidQuality}</li>
             <li>{vidFormat}</li>
             <li>
-                <Button className="btn-dl" variant="contained" startIcon={<DownloadIcon />}>
-                    <a href={vidUrl} target="blank">Download</a>
-                </Button>
+                <a href={vidUrl}>
+                    <Button className="btn-dl" download variant="contained" startIcon={<DownloadIcon />}>Download </Button>
+                </a>
             </li>
         </ul>
     </Container>

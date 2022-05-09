@@ -8,6 +8,9 @@
 body{
   overflow: auto;
 }
+.sm_screen{
+  display: none;
+}
 li{
   list-style: none;
 }
@@ -36,3 +39,26 @@ a{
   background-color: rgba(217, 206, 228, 0.493) !important;
   padding: 0 !important;
 } */
+
+/* 780 * 760 */
+
+@media screen and (max-width: 780px) {
+  .App {
+    display: none;
+  }
+  .sm_screen{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: rgb(216, 217, 218);
+    min-height: 700px;
+    background-color: rgb(34, 32, 32);
+    font-size: 20px;
+  }
+  .sm_screen > h3 {
+    margin: .15rem;
+    letter-spacing: .5px;
+  }
+}
