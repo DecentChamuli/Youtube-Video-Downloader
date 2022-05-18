@@ -65,7 +65,7 @@ const Download = () => {
     const [audio, setAudio] = useState("#")
     const [loading, setLoading] = useState(false)
 
-    const mergeBase = "https://api-server-by-dc.herokuapp.com/yt/merge?video=https://www.youtube.com/watch?"
+    const mergeBase = "https://api-server-by-dc.herokuapp.com/yt/merge1?video=https://www.youtube.com/watch?"
 
     let param = query.get("youtube")
     useEffect(()=>{
@@ -80,9 +80,9 @@ const Download = () => {
             set360(res.data[3].ytVid[0]["360p"])
             set720(res.data[3].ytVid[1]["720p"])
             setAudio(res.data[4].ytAudio)
-
             setLoading(false)
         })
+        
     }, [param])
 
     const handleChange = (event, newValue) => {
